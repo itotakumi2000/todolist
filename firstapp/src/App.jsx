@@ -66,10 +66,13 @@ class App extends React.Component {
 		// setStateを使うと、stateが更新されたことが各コンポーネントに伝わるため必ず使う
 
 	}
-	buttonChange(){
+	//以下のように、todosの何番目のtodoなのか、特定するためにkeyを引数で受け取りましょう。
+	buttonChange(key){
+		
 		const newTodos = this.state.todos.slice()
+		// const clickedTodo = newTodos[key] このように特定したい。
 		if(this.state.todos.isDone = false){
-			newTodos.isDone = true
+			newTodos.isDone = true //このnewTodosはtodoの配列です。isDoneプロパティは持っていません。
 			this.setState({
 				todos:newTodos
 			})
