@@ -3,6 +3,12 @@ import React from "react"
 import Form from "./Form"
 import TodoList from "./TodoList"
 
+import styled from "styled-components"
+
+const Container = styled.div`
+	background-color: lightgreen;
+`
+
 
 // コンポーネント
 // React.Componentの継承
@@ -66,31 +72,32 @@ class App extends React.Component {
 		// setStateを使うと、stateが更新されたことが各コンポーネントに伝わるため必ず使う
 
 	}
-	buttonChange(){
+	buttonChange(key){
 		const newTodos = this.state.todos.slice()
-		if(this.state.todos.isDone = false){
-			newTodos.isDone = true
-			this.setState({
-				todos:newTodos
-			})
-		}else {
-			newTodos.isDone = false
-			this.setState({
-				todos:newTodos
-			})
-		}
+		// if(this.state.todos.isDone = false){
+		// 	newTodos.isDone = true
+		// 	this.setState({
+		// 		todos:newTodos
+		// 	})
+		// }else {
+		// 	newTodos.isDone = false
+		// 	this.setState({
+		// 		todos:newTodos
+		// 	})
+		// }
+		newTodos[key].isDone = !newTodos[key].isDone
 	}
 	render() {
 		return(
 		// divを使いたくない場合React.Fragmentを使う
-			<React.Fragment>
+			<Container>
 				<Form hundleSubmit={this.handleSubmit.bind(this)}></Form>
 				{/* thisはFormになってしまうため、bindでAppにする */}
 				{/* この文脈でのthis（app）にthisを固定する */}
 
 				{/* TodoListに、hahahatodosという名前で、=の後に指定したデータを送る(propsを経由して) */}
-				<TodoList hahahatodos={this.state.todos} buttonchange={this.buttonChange}></TodoList>
-			</React.Fragment>
+				<TodoList hahahatodos={this.state.todos} buttonchange={this.buttonChange.bind(this)}></TodoList>
+			</Container>
 		)
 	}
 }
@@ -146,3 +153,8 @@ export default App
 // console.log(this)
 // たけみつがなければundefined
 // たけみつがかえされる
+
+
+// --------------
+// URLは見かけ上の名前
+// method GET or POST

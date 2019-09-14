@@ -10,9 +10,15 @@ export default class TodoItem extends React.Component {
 			<li>
 				<p>タイトル: {this.props.title}</p>
 				<p>詳細: {this.props.desc}</p>
-				<button　onclick={this.props.buttonchange}>{buttonText}</button>
+				<button　onClick={()=>this.props.handleClick(this.props.id)}>{buttonText}</button>
 			</li>
 		)
+
+		// function handleClick() {
+		// 	this.props.handleClick(this.props.)
+		// }
+		// onClickの中にthis.props.id
+
 	}
 }
 
@@ -20,3 +26,6 @@ export default class TodoItem extends React.Component {
 
 // sample.desc
 
+// sample.addEventListener("click", function(){
+	// argumentsで参照できる、仮引数
+// })
