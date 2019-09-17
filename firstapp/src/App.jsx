@@ -72,20 +72,24 @@ class App extends React.Component {
 		// setStateを使うと、stateが更新されたことが各コンポーネントに伝わるため必ず使う
 
 	}
+
+	//以下のように、todosの何番目のtodoなのか、特定するためにkeyを引数で受け取りましょう。
 	buttonChange(key){
+		
 		const newTodos = this.state.todos.slice()
-		// if(this.state.todos.isDone = false){
-		// 	newTodos.isDone = true
-		// 	this.setState({
-		// 		todos:newTodos
-		// 	})
-		// }else {
-		// 	newTodos.isDone = false
-		// 	this.setState({
-		// 		todos:newTodos
-		// 	})
-		// }
-		newTodos[key].isDone = !newTodos[key].isDone
+		// const clickedTodo = newTodos[key] このように特定したい。
+		if(this.state.todos.isDone = false){
+			newTodos.isDone = true //このnewTodosはtodoの配列です。isDoneプロパティは持っていません。
+			this.setState({
+				todos:newTodos
+			})
+		}else {
+			newTodos.isDone = false
+			this.setState({
+				todos:newTodos
+			})
+		}
+
 	}
 	render() {
 		return(
@@ -155,8 +159,10 @@ export default App
 // たけみつがかえされる
 
 
+
 // --------------
 // URLは見かけ上の名前
 // method GET or POST
 
 // a
+
