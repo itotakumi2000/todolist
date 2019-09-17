@@ -1,5 +1,22 @@
 import  React from "react"
 
+import styled from "styled-components"
+
+const ItemWrap = styled.li`
+	list-style: none;
+	background-color: #fff;
+	border-left: 35px solid #00FFFF;
+	margin-top: 40px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	box-shadow: 8px 3px;
+`
+
+
+const ToggleBtn = styled.button`
+	width: 100px;
+`
+
 export default class TodoItem extends React.Component {
 	render() {
 		const buttonText =  this.props.isDone?"戻す":"完了"
@@ -7,11 +24,11 @@ export default class TodoItem extends React.Component {
 		// 三項演算子
 
 		return(
-			<li>
+			<ItemWrap>
 				<p>タイトル: {this.props.title}</p>
 				<p>詳細: {this.props.desc}</p>
-				<button　onClick={()=>this.props.handleClick(this.props.id)}>{buttonText}</button>
-			</li>
+				<ToggleBtn　onClick={()=>this.props.buttonChange(this.props.id)}>{buttonText}</ToggleBtn>
+			</ItemWrap>
 		)
 
 		// function handleClick() {

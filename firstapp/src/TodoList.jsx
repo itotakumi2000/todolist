@@ -2,16 +2,20 @@ import  React from "react"
 
 import TodoItem from "./TodoItem"
 
+
+
 export default class TodoList extends React.Component {
 	render() {
-		const todos = this.props.hahahatodos.map((todo, i)=>{
+		const todos = this.props.todos.map((todo, i)=>{
 			// 一意（unique）なキー（i）を用意する
 			return (
 				<TodoItem 
 					key={i}
+					id={i}
 					title={todo.title}
 					desc={todo.desc}
-					isDone={this.props.buttonchange}
+					isDone={todo.isDone}
+					buttonChange={this.props.buttonChange}
 				/>
 			)
 		})

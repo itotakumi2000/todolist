@@ -6,7 +6,19 @@ import TodoList from "./TodoList"
 import styled from "styled-components"
 
 const Container = styled.div`
-	background-color: lightgreen;
+	width: 800px;
+	margin: 0 auto;
+	text-align: center;
+	padding: 30px 60px;
+	background-image: url("../corkboard.jpg");
+`
+
+const Subject = styled.h1`
+	font-family: 'Courier';
+	font-weight: normal;
+	font-size: 50px;
+	margin: 0;
+	margin-bottom: 10px;
 `
 
 
@@ -76,31 +88,25 @@ class App extends React.Component {
 	//以下のように、todosの何番目のtodoなのか、特定するためにkeyを引数で受け取りましょう。
 	buttonChange(key){
 		
-		const newTodos = this.state.todos.slice()
+		let newTodos = this.state.todos.slice()
 		// const clickedTodo = newTodos[key] このように特定したい。
-		if(this.state.todos.isDone = false){
-			newTodos.isDone = true //このnewTodosはtodoの配列です。isDoneプロパティは持っていません。
-			this.setState({
-				todos:newTodos
-			})
-		}else {
-			newTodos.isDone = false
-			this.setState({
-				todos:newTodos
-			})
-		}
+		newTodos[key].isDone = !newTodos[key].isDone
+		this.setState({
+			todos:newTodos
+		})
 
 	}
 	render() {
 		return(
 		// divを使いたくない場合React.Fragmentを使う
 			<Container>
+				<Subject>Todo List</Subject>
 				<Form hundleSubmit={this.handleSubmit.bind(this)}></Form>
 				{/* thisはFormになってしまうため、bindでAppにする */}
 				{/* この文脈でのthis（app）にthisを固定する */}
 
 				{/* TodoListに、hahahatodosという名前で、=の後に指定したデータを送る(propsを経由して) */}
-				<TodoList hahahatodos={this.state.todos} buttonchange={this.buttonChange.bind(this)}></TodoList>
+				<TodoList todos={this.state.todos} buttonChange={this.buttonChange.bind(this)}></TodoList>
 			</Container>
 		)
 	}
