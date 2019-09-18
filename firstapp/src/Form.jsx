@@ -13,17 +13,26 @@ const FormBtn = styled.button`
     :active{
         box-shadow: 0px 0px;
     }
+    :focus { 
+        outline:0; 
+    }
 `
 
 
 const FormInputLeft = styled.input`
     height: 30px;
     margin-right: 20px;
+    :focus { 
+        outline:0; 
+    }
 `
 
 const FormInputRight = styled.input`
     height: 30px;
     margin-right: 20px;
+    :focus { 
+        outline:0; 
+    }
 `
 
 class Form extends React.Component {
@@ -59,3 +68,4 @@ export default Form
 //         )
 //     }
 // }
+

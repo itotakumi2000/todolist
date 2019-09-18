@@ -5,12 +5,14 @@ import TodoList from "./TodoList"
 
 import styled from "styled-components"
 
+import image from "./corkboard.jpg"
+
 const Container = styled.div`
 	width: 800px;
 	margin: 0 auto;
 	text-align: center;
 	padding: 30px 60px;
-	background-image: url("../corkboard.jpg");
+	background-image: url(${image});
 `
 
 const Subject = styled.h1`
@@ -96,6 +98,8 @@ class App extends React.Component {
 		})
 
 	}
+
+
 	render() {
 		return(
 		// divを使いたくない場合React.Fragmentを使う

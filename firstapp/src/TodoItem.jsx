@@ -15,6 +15,15 @@ const ItemWrap = styled.li`
 
 const ToggleBtn = styled.button`
 	width: 100px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-radius: 5px 5px;
+	:focus { 
+        outline:0; 
+	}
+	:hover {
+		background-color: #c0c0c0;
+	}
 `
 
 export default class TodoItem extends React.Component {
