@@ -2,6 +2,7 @@ import React from "react"
 
 import styled from "styled-components"
 
+
 const FormBtn = styled.button`
     box-shadow: 3px 3px black;
 	border-radius: 50% 50%;
@@ -16,7 +17,7 @@ const FormBtn = styled.button`
     :focus { 
         outline:0; 
     }
-`
+    `
 
 
 const FormInputLeft = styled.input`
@@ -25,7 +26,7 @@ const FormInputLeft = styled.input`
     :focus { 
         outline:0; 
     }
-`
+    `
 
 const FormInputRight = styled.input`
     height: 30px;
@@ -34,6 +35,8 @@ const FormInputRight = styled.input`
         outline:0; 
     }
 `
+
+
 
 class Form extends React.Component {
     
@@ -50,18 +53,20 @@ class Form extends React.Component {
 // formがsubmitされたらappのstateを書き換えたい
 // しかし、formコンポーネント内では、appのstateは参照できない...（コンポーネントが分かれているため）
 
+
+
 export default Form
 
 // nameをつけるのは識別するため
 
 // class Form extends React.Component {
-//     hundleSubmit(){
-//         // 処理
-//     }
-//     render() {
-//         return(
-//             <form onSubmit={this.props.hundleSubmit}>
-//                 <input type="text" name="title" />
+    //     hundleSubmit(){
+        //         // 処理
+        //     }
+        //     render() {
+            //         return(
+                //             <form onSubmit={this.props.hundleSubmit}>
+                //                 <input type="text" name="title" />
 //                 <input type="text" name="desc" />
 //                 <button type="submit">追加</button>
 //             </form>

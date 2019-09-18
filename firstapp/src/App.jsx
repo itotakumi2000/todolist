@@ -84,6 +84,9 @@ class App extends React.Component {
 			todos: newTodos
 		})
 		// setStateを使うと、stateが更新されたことが各コンポーネントに伝わるため必ず使う
+		
+		e.target.title.value = ""
+		e.target.desc.value = ""
 
 	}
 
@@ -93,9 +96,11 @@ class App extends React.Component {
 		let newTodos = this.state.todos.slice()
 		// const clickedTodo = newTodos[key] このように特定したい。
 		newTodos[key].isDone = !newTodos[key].isDone
+
 		this.setState({
 			todos:newTodos
 		})
+		
 
 	}
 

@@ -28,7 +28,7 @@ const ToggleBtn = styled.button`
 
 export default class TodoItem extends React.Component {
 	render() {
-		const buttonText =  this.props.isDone?"戻す":"完了"
+		const buttonText =  this.props.isDone?"revert":"done!!"
 		// sample.isDone?"戻す":"完了"
 		// 三項演算子
 
