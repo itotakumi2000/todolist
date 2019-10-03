@@ -44,7 +44,7 @@ class App extends React.Component {
 			]
 		}
 	}
-	handleSubmit(e){
+	handleSubmit(e) {
 		e.preventDefault()
 		// 発生元の挙動をキャンセル、更新しなくなる
 
@@ -57,57 +57,81 @@ class App extends React.Component {
 
 		const desc = e.target.desc.value
 
+		fetch("http://localhost:3001/api/todos", {
+			method: "POST",
+			body: JSON.stringify({
+				title: title,
+				desc: desc,
+				isDone: false  //サーバー側の処理による
+			}),
+			headers: new Headers({ 'Content-type': 'application/json' })
 
-		// 直接stateを書き換えない！
-		// this.state.todos.push({
-		// 	id: 3,
+		}).then(() => {
+			// todo全てを更新
+			this.fetchResponse()
+		})
+
+		// // 直接stateを書き換えない！
+		// // this.state.todos.push({
+		// // 	id: 3,
+		// // 	title: title,
+		// // 	desc: desc,
+		// // 	isDone: false
+		// // }) 
+
+		// // stateのtodosを取得してnewTodosにいれている
+		// // todosをコピーする（sliceを使って）
+		// // slice(3)は3つめ以降コピー、slice()はすべてコピー
+		// const newTodos = this.state.todos.slice()
+		// // thisは実行の呼び出し元を参照するため、Formコンポーネントを参照してしまう
+		// newTodos.push({
 		// 	title: title,
 		// 	desc: desc,
 		// 	isDone: false
-		// }) 
+		// })
 
-		// stateのtodosを取得してnewTodosにいれている
-		// todosをコピーする（sliceを使って）
-		// slice(3)は3つめ以降コピー、slice()はすべてコピー
-		const newTodos = this.state.todos.slice()
-		// thisは実行の呼び出し元を参照するため、Formコンポーネントを参照してしまう
-		newTodos.push({
-			title: title,
-			desc: desc,
-			isDone: false
-		})
-		
-		// ②stateのtodosに、入力されたデータを追加する
-		// 再レンダリングを行うために、必ずsetStateを使用する
-		this.setState({
-			// 新しいstateの内容を記述する
-			todos: newTodos
-		})
-		// setStateを使うと、stateが更新されたことが各コンポーネントに伝わるため必ず使う
-		
-		e.target.title.value = ""
-		e.target.desc.value = ""
+		// // ②stateのtodosに、入力されたデータを追加する
+		// // 再レンダリングを行うために、必ずsetStateを使用する
+		// this.setState({
+		// 	// 新しいstateの内容を記述する
+		// 	todos: newTodos
+		// })
+		// // setStateを使うと、stateが更新されたことが各コンポーネントに伝わるため必ず使う
+
+		// e.target.title.value = ""
+		// e.target.desc.value = ""
 
 	}
 
 	//以下のように、todosの何番目のtodoなのか、特定するためにkeyを引数で受け取りましょう。
-	buttonChange(key){
-		
+	buttonChange(key) {
+
 		let newTodos = this.state.todos.slice()
 		// const clickedTodo = newTodos[key] このように特定したい。
 		newTodos[key].isDone = !newTodos[key].isDone
 
 		this.setState({
-			todos:newTodos
+			todos: newTodos
 		})
-		
 
+
+	}
+
+	fetchResponse() {
+		fetch("http://localhost:3001/api/todos")
+			.then(res => res.json())
+			.then(res => {
+				// このresは上のres.jsonが入っている
+				this.setState({
+					todo: res
+				})
+			})
 	}
 
 
 	render() {
-		return(
-		// divを使いたくない場合React.Fragmentを使う
+		return (
+			// divを使いたくない場合React.Fragmentを使う
 			<Container>
 				<Subject>Todo List</Subject>
 				<Form hundleSubmit={this.handleSubmit.bind(this)}></Form>
