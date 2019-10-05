@@ -30,20 +30,14 @@ class App extends React.Component {
 	constructor() {
 		super()
 		this.state = {
-			todos: [
-				{
-					title: "課題をやる！",
-					desc: "testttdfghjkjhnbgfghjhgfg",
-					isDone: false
-				},
-				{
-					title: "課題をやる！",
-					desc: "testttdfghjkjhnbgfghjhgfg",
-					isDone: false
-				}
-			]
+			todos: []
 		}
 	}
+
+	componentDidMount() {
+		this.fetchResponse()
+	}
+
 	handleSubmit(e) {
 		e.preventDefault()
 		// 発生元の挙動をキャンセル、更新しなくなる
@@ -56,18 +50,23 @@ class App extends React.Component {
 		// （e.targetでイベントの発生元（ここではform要素）を取得する）
 
 		const desc = e.target.desc.value
+		e.persist()
 
 		fetch("http://localhost:3001/api/todos", {
 			method: "POST",
+			headers: {
+				'Content-type': 'application/json'
+			},
 			body: JSON.stringify({
 				title: title,
 				desc: desc,
 				isDone: false  //サーバー側の処理による
-			}),
-			headers: new Headers({ 'Content-type': 'application/json' })
+			})
 
 		}).then(() => {
 			// todo全てを更新
+			e.target.title.value = ""
+			e.target.desc.value = ""
 			this.fetchResponse()
 		})
 
@@ -98,22 +97,65 @@ class App extends React.Component {
 		// })
 		// // setStateを使うと、stateが更新されたことが各コンポーネントに伝わるため必ず使う
 
-		// e.target.title.value = ""
-		// e.target.desc.value = ""
 
 	}
 
 	//以下のように、todosの何番目のtodoなのか、特定するためにkeyを引数で受け取りましょう。
-	buttonChange(key) {
+	buttonChange(key, title, desc, isDone) {
 
-		let newTodos = this.state.todos.slice()
-		// const clickedTodo = newTodos[key] このように特定したい。
-		newTodos[key].isDone = !newTodos[key].isDone
+		// let newTodos = this.state.todos.slice()
+		// // const clickedTodo = newTodos[key] このように特定したい。
+		// newTodos[key].isDone = !newTodos[key].isDone
 
-		this.setState({
-			todos: newTodos
+		// this.setState({
+		// 	todos: newTodos
+		// })
+
+		fetch("http://localhost:3001/api/todos/" + key, {
+			method: "PUT",
+			headers: {
+				'Content-type': 'application/json'
+			},
+			body: JSON.stringify({
+				title: title,
+				desc: desc,
+				isDone: !isDone
+			})
+
+		}).then(() => {
+			this.fetchResponse()
 		})
 
+	}
+
+
+	buttonDelete(key) {
+		fetch("http://localhost:3001/api/todos/" + key, {
+			method: "delete"
+		}).then(() => {
+			// todo全てを更新
+			this.fetchResponse()
+		})
+	}
+
+	editComplete(e, key, isDone) {
+		e.preventDefault()
+		const title = e.target.title.value
+		console.log(title)
+		const desc = e.target.desc.value
+
+		fetch("http://localhost:3001/api/todos/" + key, {
+			method: "PUT",
+			headers: {
+				'Content-type': 'application/json'
+			},
+			body: JSON.stringify({
+				title: title,
+				desc: desc,
+				isDone: isDone
+			})
+
+		})
 
 	}
 
@@ -123,8 +165,10 @@ class App extends React.Component {
 			.then(res => {
 				// このresは上のres.jsonが入っている
 				this.setState({
-					todo: res
+					todos: res
 				})
+			}).then(() => {
+				this.fetchResponse()
 			})
 	}
 
@@ -139,8 +183,8 @@ class App extends React.Component {
 				{/* この文脈でのthis（app）にthisを固定する */}
 
 				{/* TodoListに、hahahatodosという名前で、=の後に指定したデータを送る(propsを経由して) */}
-				<TodoList todos={this.state.todos} buttonChange={this.buttonChange.bind(this)}></TodoList>
-			</Container>
+				<TodoList todos={this.state.todos} buttonChange={this.buttonChange.bind(this)} buttonDelete={this.buttonDelete.bind(this)}></TodoList>
+			</Container >
 		)
 	}
 }

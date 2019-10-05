@@ -1,4 +1,4 @@
-import  React from "react"
+import React from "react"
 
 import styled from "styled-components"
 
@@ -27,16 +27,50 @@ const ToggleBtn = styled.button`
 `
 
 export default class TodoItem extends React.Component {
+	//編集中かどうかの表示をするコンストラクタ（true or false）
+	constructor() {
+		super()
+		this.state = {
+			editFlg: false
+		}
+
+	}
+
+	renderContent() {
+		const title = this.props.title
+		const desc = this.props.desc
+		const isDone = this.props.isDone
+
+		if (this.state.editFlg) {
+			return (
+				<form onSubmit={(e) => this.props.editComplete(e, this.props.id, isDone)}>
+					<input type="text" defaultValue={title} />
+					<input type="text" defaultValue={desc} />
+					<button type="submit" >更新</button>
+				</form>
+			)
+		} else {
+			return (
+				<div>
+					<p>タイトル: {this.props.title}</p>
+					<p>詳細: {this.props.desc}</p>
+				</div>
+			)
+		}
+	}
+
+
 	render() {
-		const buttonText =  this.props.isDone?"revert":"done!!"
+		const buttonText = this.props.isDone ? "revert" : "done!!"
 		// sample.isDone?"戻す":"完了"
 		// 三項演算子
 
-		return(
+		return (
 			<ItemWrap>
-				<p>タイトル: {this.props.title}</p>
-				<p>詳細: {this.props.desc}</p>
-				<ToggleBtn　onClick={()=>this.props.buttonChange(this.props.id)}>{buttonText}</ToggleBtn>
+				{this.renderContent()}
+				<ToggleBtn onClick={() => this.props.buttonChange(this.props.id, this.props.title, this.props.desc, this.props.isDone)}>{buttonText}</ToggleBtn>
+				<ToggleBtn onClick={() => this.setState({ editFlg: !this.state.editFlg })} > Edit</ToggleBtn>
+				<ToggleBtn onClick={() => this.props.buttonDelete(this.props.id)}>Delete</ToggleBtn>
 			</ItemWrap>
 		)
 

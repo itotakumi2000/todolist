@@ -1,4 +1,4 @@
-import  React from "react"
+import React from "react"
 
 import TodoItem from "./TodoItem"
 
@@ -6,22 +6,24 @@ import TodoItem from "./TodoItem"
 
 export default class TodoList extends React.Component {
 	render() {
-		const todos = this.props.todos.map((todo, i)=>{
+		const todos = this.props.todos.map((todo, i) => {
 			// 一意（unique）なキー（i）を用意する
 			return (
-				<TodoItem 
+				<TodoItem
 					key={i}
-					id={i}
+					id={todo._id}
 					title={todo.title}
 					desc={todo.desc}
 					isDone={todo.isDone}
 					buttonChange={this.props.buttonChange}
+					buttonDelete={this.props.buttonDelete}
+					editComplete={this.props.editComplete}
 				/>
 			)
 		})
 
 
-		return(
+		return (
 			<ul>
 				{todos}
 			</ul>
@@ -30,7 +32,7 @@ export default class TodoList extends React.Component {
 }
 
 
-{/* const arr = [1,2,3,4] */}
+{/* const arr = [1,2,3,4] */ }
 
 // const arr = [
 // 	{one: 1, two: 2, three: 3},
